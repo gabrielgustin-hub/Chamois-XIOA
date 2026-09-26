@@ -353,6 +353,48 @@
       font-size: .85rem;
     }
     footer .container { display: flex; justify-content: space-between; gap: 15px; }
+    .footer-main { align-items: flex-start; }
+    .footer-main > div:first-child { display: flex; flex-direction: column; gap: 4px; }
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      font-size: .72rem;
+      line-height: 1.45;
+      color: rgba(255,255,255,.48);
+    }
+    .footer-contact strong { color: rgba(255,255,255,.68); font-size: .76rem; }
+    .footer-contact a:hover { color: white; }
+    .fundraising {
+      background: var(--green-light);
+      padding: 70px 0;
+    }
+    .fundraising-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 35px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .fundraising-card h2 { margin: 8px 0 12px; }
+    .fundraising-card p { color: var(--muted); max-width: 720px; }
+    .fundraising-badge {
+      min-width: 210px;
+      padding: 22px;
+      border-radius: 18px;
+      background: var(--green);
+      color: white;
+      text-align: center;
+    }
+    .fundraising-badge span,
+    .fundraising-badge strong { display: block; }
+    .fundraising-badge span { font-size: .82rem; opacity: .78; margin-bottom: 5px; }
+    .fundraising-badge strong { font-size: 1rem; }
 
     @media (max-width: 900px) {
       .hero-grid, .about-grid, .booking-grid { grid-template-columns: 1fr; }
@@ -369,6 +411,9 @@
       section { padding: 65px 0; }
       form { padding: 20px; }
       footer .container { flex-direction: column; }
+      .fundraising-card { grid-template-columns: 1fr; padding: 28px; }
+      .fundraising-badge { min-width: 0; }
+      .footer-contact { align-items: flex-start; }
     }
   </style>
 </head>
@@ -441,6 +486,27 @@
             <h3>Petits travaux</h3>
             <p>Aide au rangement, manutention légère et petits travaux extérieurs selon la demande.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="fundraising" id="voyage">
+      <div class="container">
+        <div class="fundraising-card">
+          <div>
+            <div class="eyebrow">Notre objectif</div>
+            <h2>Un coup de main pour notre voyage à l'étranger</h2>
+            <p>
+              L'argent récolté grâce à vos demandes nous aide à financer notre voyage à l'étranger.
+              En faisant appel aux Chamois, vous nous donnez un coup de main pour réaliser ce projet
+              tout en bénéficiant de notre aide.
+            </p>
+          </div>
+          <div class="fundraising-badge">
+            <span>Chaque service compte</span>
+            <strong>Merci pour votre soutien !</strong>
+          </div>
         </div>
       </div>
     </section>
@@ -563,9 +629,17 @@
   </main>
 
   <footer>
-    <div class="container">
-      <span>© 2026 Les Chamois · Scouts du Sart-Tilman · 11e unité Ourthe-Amblève</span>
-      <span>Un projet scout au service de notre région.</span>
+    <div class="container footer-main">
+      <div>
+        <span>© 2026 Les Chamois · Scouts du Sart-Tilman · 11e unité Ourthe-Amblève</span>
+        <span>Un projet scout au service de notre région.</span>
+      </div>
+      <div class="footer-contact">
+        <strong>Gabriel Gustin</strong>
+        <span>Totem : Doguera Combatif</span>
+        <a href="mailto:gabriel.gustin@icloud.com">gabriel.gustin@icloud.com</a>
+        <a href="tel:+32471645578">+32 471 64 55 78</a>
+      </div>
     </div>
   </footer>
 
