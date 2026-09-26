@@ -475,6 +475,9 @@
         </div>
 
         <form id="bookingForm">
+          <input type="hidden" name="access_key" value="cd7761f6-c3d6-4947-bdae-dee45fc98bb2">
+          <input type="hidden" name="subject" value="Nouvelle demande - Les Chamois">
+          <input type="hidden" name="from_name" value="Site des Chamois">
           <div class="form-grid">
             <div class="field">
               <label for="prenom">Prénom *</label>
@@ -523,7 +526,7 @@
 
           <p class="form-note">* Champs obligatoires. Nous ne proposons pas de tarif fixe : indiquez simplement le montant que vous souhaitez proposer pour le travail. L'envoi du formulaire ne constitue pas encore une réservation : nous devons d'abord confirmer votre demande.</p>
           <button class="btn btn-primary" type="submit">Envoyer ma demande</button>
-          <div class="success" id="success">Merci ! Votre demande est prête. Dans la version en ligne, elle sera envoyée à l'adresse e-mail de votre patrouille.</div>
+          <div class="success" id="success">Merci ! Votre demande a bien été envoyée. Nous vous recontacterons pour confirmer les détails.</div>
         </form>
       </div>
     </section>
@@ -546,10 +549,38 @@
   </footer>
 
   <script>
-    document.getElementById("bookingForm").addEventListener("submit", function(e) {
+    document.getElementById("bookingForm").addEventListener("submit", async function(e) {
       e.preventDefault();
-      document.getElementById("success").style.display = "block";
-      this.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      const form = this;
+      const button = form.querySelector('button[type="submit"]');
+      const success = document.getElementById("success");
+
+      button.disabled = true;
+      button.textContent = "Envoi en cours...";
+      success.style.display = "none";
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: new FormData(form)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          success.style.display = "block";
+          form.reset();
+          success.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          throw new Error(result.message || "Erreur lors de l'envoi");
+        }
+      } catch (error) {
+        alert("Impossible d'envoyer la demande pour le moment. Vérifiez votre connexion et réessayez.");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Envoyer ma demande";
+      }
     });
   </script>
 </body>
