@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gabrielgustin-hub.github.io/Chamois-XIOA/sitemap.xml
