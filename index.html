@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chamois XIOA | Services au Sart-Tilman</title>
-  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-  <link rel="shortcut icon" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png">
   <meta name="description" content="Chamois XIOA, patrouille des Scouts du Sart-Tilman : jardinage, tonte de pelouse, lavage de voiture, nettoyage et petits travaux au Sart-Tilman et dans les environs.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://gabrielgustin-hub.github.io/Chamois-XIOA/">
@@ -418,33 +417,91 @@
     .footer-contact a:hover { color: white; }
     .fundraising {
       background: var(--green-light);
-      padding: 70px 0;
+      padding: 80px 0;
     }
     .fundraising-card {
       background: white;
       border: 1px solid var(--border);
       border-radius: 28px;
       padding: 42px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 35px;
-      align-items: center;
       box-shadow: var(--shadow);
     }
     .fundraising-card h2 { margin: 8px 0 12px; }
-    .fundraising-card p { color: var(--muted); max-width: 720px; }
-    .fundraising-badge {
-      min-width: 210px;
-      padding: 22px;
-      border-radius: 18px;
+    .fundraising-card > p { color: var(--muted); max-width: 760px; }
+    .progress-layout {
+      display: grid;
+      grid-template-columns: 1fr 210px;
+      gap: 38px;
+      align-items: center;
+      margin-top: 32px;
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .progress-amount {
+      font-family: Montserrat, sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--green-dark);
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .progress-goal {
+      color: var(--muted);
+      font-size: .92rem;
+      font-weight: 600;
+    }
+    .progress-track {
+      width: 100%;
+      height: 18px;
+      border-radius: 999px;
+      background: #e4e9e6;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,.08);
+    }
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), #2d72c7);
+      transition: width 2.2s cubic-bezier(.2,.8,.2,1);
+      position: relative;
+    }
+    .progress-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: translateX(-100%);
+      animation: progress-shine 2.2s ease 0.25s forwards;
+    }
+    @keyframes progress-shine {
+      to { transform: translateX(100%); }
+    }
+    .progress-percent {
+      text-align: center;
       background: var(--green);
       color: white;
-      text-align: center;
+      border-radius: 22px;
+      padding: 25px 20px;
+      box-shadow: 0 12px 25px rgba(23,74,139,.18);
     }
-    .fundraising-badge span,
-    .fundraising-badge strong { display: block; }
-    .fundraising-badge span { font-size: .82rem; opacity: .78; margin-bottom: 5px; }
-    .fundraising-badge strong { font-size: 1rem; }
+    .progress-percent strong {
+      display: block;
+      font-family: Montserrat, sans-serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .progress-percent span { font-size: .85rem; opacity: .8; }
+    .progress-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
 
     @media (max-width: 900px) {
       .hero-grid, .about-grid, .booking-grid { grid-template-columns: 1fr; }
@@ -461,8 +518,9 @@
       section { padding: 65px 0; }
       form { padding: 20px; }
       footer .container { flex-direction: column; }
-      .fundraising-card { grid-template-columns: 1fr; padding: 28px; }
-      .fundraising-badge { min-width: 0; }
+      .fundraising-card { padding: 28px; }
+      .progress-layout { grid-template-columns: 1fr; gap: 22px; }
+      .progress-percent { max-width: 210px; margin: 0 auto; width: 100%; }
       .footer-contact { align-items: flex-start; }
     }
   </style>
@@ -573,16 +631,28 @@
     <section class="fundraising" id="voyage">
       <div class="container">
         <div class="fundraising-card">
-          <div>
-            <div class="eyebrow">Notre objectif</div>
-            <h2>Soutenez le projet des Chamois</h2>
-            <p>
-              L'argent récolté grâce aux services des Chamois nous aide à financer notre voyage à l'étranger. En faisant appel à notre patrouille pour du jardinage, du lavage de voiture, du nettoyage ou de petits travaux, vous nous donnez un coup de main pour réaliser ce projet.
-            </p>
-          </div>
-          <div class="fundraising-badge">
-            <span>Chaque service compte</span>
-            <strong>Merci pour votre soutien !</strong>
+          <div class="eyebrow">Notre objectif</div>
+          <h2>Notre voyage commence ici</h2>
+          <p>
+            Chaque service réalisé nous rapproche de notre objectif : financer notre voyage à l'étranger. Merci à toutes les personnes qui font appel aux Chamois et nous permettent de faire avancer ce projet.
+          </p>
+
+          <div class="progress-layout" id="progressSection">
+            <div>
+              <div class="progress-top">
+                <span class="progress-amount" id="progressAmount">0 €</span>
+                <span class="progress-goal">Objectif : <strong id="progressGoal">2 000 €</strong></span>
+              </div>
+              <div class="progress-track" aria-label="Progression vers l'objectif">
+                <div class="progress-bar" id="progressBar"></div>
+              </div>
+              <p class="progress-note">Chaque prestation nous rapproche un peu plus du départ.</p>
+            </div>
+
+            <div class="progress-percent">
+              <strong id="progressPercent">0 %</strong>
+              <span>de l'objectif atteint</span>
+            </div>
           </div>
         </div>
       </div>
@@ -671,9 +741,13 @@
     <section class="contact" id="contact">
       <div class="container">
         <div class="eyebrow">Une question ?</div>
-        <h2>Une demande pour les Chamois ?</h2>
+        <h2>Une demande spéciale pour les Chamois ?</h2>
         <p>Contactez les Chamois directement si vous ne savez pas quel service choisir ou si votre demande n'est pas dans la liste.</p>
-        <a class="btn btn-secondary" href="#rendez-vous">Nous contacter via le formulaire</a>
+        <div style="margin-top:26px; font-size:1.05rem; line-height:1.9;">
+          <strong style="color:white;">Gabriel Gustin</strong><br>
+          <a href="mailto:gabriel.gustin@icloud.com" style="color:white; text-decoration:underline;">gabriel.gustin@icloud.com</a><br>
+          <a href="tel:+32471645578" style="color:white; text-decoration:underline;">+32 471 64 55 78</a>
+        </div>
       </div>
     </section>
   </main>
@@ -686,7 +760,7 @@
       </div>
       <div class="footer-contact">
         <strong>Gabriel Gustin</strong>
-        <span>Totem : Doguera Combatif</span>
+        <span>Doguera Combatif</span>
         <a href="mailto:gabriel.gustin@icloud.com">gabriel.gustin@icloud.com</a>
         <a href="tel:+32471645578">+32 471 64 55 78</a>
       </div>
@@ -694,6 +768,39 @@
   </footer>
 
   <script>
+    // Modifie simplement ces deux valeurs quand le montant récolté ou l'objectif changent.
+    const collected = 0;
+    const goal = 1250;
+
+    const progressAmount = document.getElementById("progressAmount");
+    const progressGoal = document.getElementById("progressGoal");
+    const progressPercent = document.getElementById("progressPercent");
+    const progressBar = document.getElementById("progressBar");
+
+    if (progressAmount && progressGoal && progressPercent && progressBar) {
+      const targetPercent = Math.min((collected / goal) * 100, 100);
+      progressGoal.textContent = `${goal.toLocaleString("fr-BE")} €`;
+
+      const duration = 2200;
+      const start = performance.now();
+
+      function animateProgress(now) {
+        const elapsed = Math.min(now - start, duration);
+        const progress = elapsed / duration;
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const amount = Math.round(collected * eased);
+        const percent = targetPercent * eased;
+
+        progressAmount.textContent = `${amount.toLocaleString("fr-BE")} €`;
+        progressPercent.textContent = `${percent.toFixed(1).replace(".0", "")} %`;
+        progressBar.style.width = `${percent}%`;
+
+        if (elapsed < duration) requestAnimationFrame(animateProgress);
+      }
+
+      requestAnimationFrame(animateProgress);
+    }
+
     document.getElementById("bookingForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
