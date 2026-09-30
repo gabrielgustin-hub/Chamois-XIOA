@@ -322,6 +322,15 @@
       margin-bottom: 24px;
     }
     .about-visual strong { font-size: 2.8rem; font-family: Montserrat, sans-serif; display: block; }
+
+    .about-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
     .about-text p { color: var(--muted); margin: 16px 0; }
     .points { display: grid; gap: 13px; margin-top: 24px; }
     .point { display: flex; gap: 11px; align-items: flex-start; }
@@ -640,10 +649,10 @@
     <section class="about" id="nous">
       <div class="container about-grid">
         <div class="about-visual">
+          <img src="photo-chamois.jpg" alt="Les Chamois réunis au camp scout" class="about-photo">
           <div class="about-visual-content">
-            <img src="logo-unite.png" alt="Unité scoute 11e Sart-Tilman" class="about-logo">
-            <strong>Les Scouts du Sart-Tilman.</strong>
-            <span>La Xioa · 11e unité Ourthe-Amblève</span>
+            <strong>Les Chamois.</strong>
+            <span>Scouts du Sart-Tilman · 11e unité Ourthe-Amblève</span>
           </div>
         </div>
         <div class="about-text">
@@ -1061,24 +1070,72 @@
     }
     // Obstacles qui tombent du ciel : ils arrivent depuis le haut avec des trajectoires légèrement variées.
     function drawFallingRock(o) {
+      // Rochers facettés : silhouette irrégulière + faces de pierre pour mieux
+      // correspondre au décor et être immédiatement reconnaissables comme des rochers.
       ctx.save();
-      ctx.translate(o.x + o.w/2, o.y + o.h/2);
-      ctx.rotate(o.rot || 0);
-      ctx.fillStyle = o.kind === "meteor" ? "#45535a" : "#68767c";
-      ctx.beginPath();
-      const r = Math.min(o.w, o.h) / 2;
-      for(let i=0;i<7;i++){
-        const a = -Math.PI/2 + i*(Math.PI*2/7);
-        const rr = r*(.72 + (i%2)*.28);
-        const px = Math.cos(a)*rr; const py = Math.sin(a)*rr;
-        if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      const cx=o.x+o.w/2, cy=o.y+o.h/2;
+      ctx.translate(cx,cy);
+      ctx.rotate(o.rot||0);
+
+      const w=o.w, h=o.h;
+      const r=Math.min(w,h)/2;
+      const variant=o.variant||0;
+      const pts=[];
+      const count=9;
+      for(let i=0;i<count;i++){
+        const a=-Math.PI/2+i*(Math.PI*2/count);
+        const wobble=[.84,1.03,.90,1.08,.88,1.02,.91,1.06,.86][(i+variant)%9];
+        const px=Math.cos(a)*r*wobble*(w/h>.95?1:.92);
+        const py=Math.sin(a)*r*wobble*(h/w>.95?1:.92);
+        pts.push([px,py]);
       }
-      ctx.closePath(); ctx.fill();
-      ctx.fillStyle = "#89979c";
-      ctx.beginPath(); ctx.arc(-o.w*.12,-o.h*.12,Math.max(2,o.w*.10),0,Math.PI*2); ctx.fill();
-      if(o.kind === "meteor"){
-        ctx.strokeStyle="rgba(90,110,120,.45)"; ctx.lineWidth=Math.max(2,o.w*.08);
-        ctx.beginPath(); ctx.moveTo(-o.w*.35,-o.h*.25); ctx.lineTo(-o.w*.75,-o.h*.7); ctx.stroke();
+
+      // Ombre portée
+      ctx.fillStyle='rgba(10,18,24,.22)';
+      ctx.beginPath();
+      ctx.ellipse(w*.10,h*.34,r*.95,r*.34,0,0,Math.PI*2);
+      ctx.fill();
+
+      // Silhouette principale
+      ctx.fillStyle='#4f5960';
+      ctx.strokeStyle='#273238';
+      ctx.lineWidth=Math.max(1.5,w*.035);
+      ctx.beginPath();
+      pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+
+      // Faces principales : aspect pierre taillée
+      const facets=[
+        {poly:[[0,-r*.92],[-r*.62,-r*.30],[-r*.18,r*.04], [r*.08,-r*.22]], fill:'#78838a'},
+        {poly:[[0,-r*.92],[r*.08,-r*.22],[r*.63,-r*.45],[r*.72,-r*.05]], fill:'#667279'},
+        {poly:[[-r*.62,-r*.30],[-r*.18,r*.04],[-r*.36,r*.65],[-r*.78,r*.20]], fill:'#5d686f'},
+        {poly:[[-r*.18,r*.04],[r*.08,-r*.22],[r*.58,r*.12],[r*.20,r*.70],[-r*.36,r*.65]], fill:'#465158'},
+        {poly:[[r*.58,r*.12],[r*.72,-r*.05],[r*.42,r*.62],[r*.20,r*.70]], fill:'#39444a'}
+      ];
+      facets.forEach(f=>{
+        ctx.fillStyle=f.fill;
+        ctx.beginPath();
+        f.poly.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
+        ctx.closePath(); ctx.fill();
+      });
+
+      // Petites arêtes claires
+      ctx.strokeStyle='rgba(184,194,198,.55)';
+      ctx.lineWidth=Math.max(1,w*.018);
+      ctx.beginPath();
+      ctx.moveTo(-r*.58,-r*.30); ctx.lineTo(-r*.18,r*.04); ctx.lineTo(r*.08,-r*.22);
+      ctx.moveTo(-r*.18,r*.04); ctx.lineTo(r*.20,r*.70);
+      ctx.stroke();
+
+      // Traînée pour les rochers qui tombent du ciel
+      if(o.kind==='meteor'){
+        const trail=Math.max(10,h*.85);
+        const grad=ctx.createLinearGradient(0,-h*.2,0,-h*.2-trail);
+        grad.addColorStop(0,'rgba(225,232,232,.55)');
+        grad.addColorStop(1,'rgba(225,232,232,0)');
+        ctx.strokeStyle=grad;
+        ctx.lineWidth=Math.max(2,w*.10);
+        ctx.beginPath(); ctx.moveTo(-r*.18,-r*.75); ctx.lineTo(-r*.30,-r*.75-trail); ctx.stroke();
       }
       ctx.restore();
     }
