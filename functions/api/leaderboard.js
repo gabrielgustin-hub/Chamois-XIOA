@@ -55,7 +55,6 @@ export async function onRequestPost({ request, env }) {
     ).all();
 
     return json({ scores: result.results || [] }, 201);
-
   } catch (error) {
     return json({ error: "Impossible d'enregistrer le score." }, 500);
   }
