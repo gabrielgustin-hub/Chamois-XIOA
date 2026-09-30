@@ -296,32 +296,35 @@
       color: white;
       display: flex;
       align-items: flex-end;
-      padding: 35px;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--shadow);
     }
-    .about-visual::before {
-      content: "SCOUTS";
+    .about-photo {
       position: absolute;
-      font-family: Montserrat, sans-serif;
-      font-size: clamp(4rem, 10vw, 8rem);
-      font-weight: 800;
-      opacity: .07;
-      transform: rotate(-10deg);
-      left: -10px;
-      top: 80px;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
-    .about-visual-content { position: relative; z-index: 1; }
+    .about-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11, 55, 31, .88), rgba(11, 55, 31, .05) 65%);
+    }
+    .about-visual-content { position: relative; z-index: 1; padding: 35px; }
     .about-logo {
-      width: 190px;
-      max-width: 75%;
+      width: 150px;
+      max-width: 65%;
       background: white;
-      padding: 8px;
+      padding: 7px;
       border-radius: 12px;
       display: block;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
-    .about-visual strong { font-size: 2.8rem; font-family: Montserrat, sans-serif; display: block; }
+    .about-visual strong { font-size: 2.4rem; font-family: Montserrat, sans-serif; display: block; }
     .about-text p { color: var(--muted); margin: 16px 0; }
     .points { display: grid; gap: 13px; margin-top: 24px; }
     .point { display: flex; gap: 11px; align-items: flex-start; }
@@ -503,44 +506,6 @@
       font-size: .85rem;
     }
 
-
-    .game-section { background: #eef4fb; }
-    .game-modal { position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; padding:18px; background:rgba(10,24,38,.72); backdrop-filter:blur(5px); }
-    .game-modal.open { display:flex; }
-    .game-modal-inner { width:min(960px,100%); max-height:94vh; overflow:auto; position:relative; border-radius:24px; }
-    .game-close { position:absolute; top:12px; right:12px; z-index:2; width:42px; height:42px; border:0; border-radius:50%; background:#fff; color:#174a8b; font-size:1.4rem; font-weight:800; cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,.18); }
-    .game-leaderboard { margin:18px auto 0; max-width:760px; background:#f6f9fc; border:1px solid #dbe6ef; border-radius:16px; padding:16px; }
-    .game-leaderboard h3 { margin:0 0 10px; color:#174a8b; }
-    .leaderboard-list { margin:0; padding:0; list-style:none; }
-    .leaderboard-list li { display:flex; justify-content:space-between; gap:12px; padding:8px 10px; border-radius:10px; }
-    .leaderboard-list li:nth-child(odd) { background:#eaf2f8; }
-    .leaderboard-empty { color:#71808c; font-size:.9rem; }
-
-    .game-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: var(--shadow);
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .game-head { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom:20px; }
-    .game-head p { color:var(--muted); max-width:650px; margin-top:8px; }
-    .game-wrap { position:relative; width:100%; max-width:760px; margin:0 auto; }
-    #chamoisGame {
-      display:block; width:100%; aspect-ratio: 16/9; max-height:520px;
-      background:#dcebf8; border-radius:18px; border:2px solid #c7d9eb;
-      touch-action:none;
-    }
-    .game-hud { display:flex; justify-content:space-between; gap:12px; margin:12px 2px 0; font-weight:700; color:var(--green-dark); }
-    .game-message { text-align:center; min-height:28px; margin-top:10px; color:var(--muted); font-weight:600; }
-    .game-controls { display:flex; justify-content:center; gap:12px; margin-top:14px; }
-    .game-control { width:58px; height:46px; border:0; border-radius:14px; background:var(--green); color:white; font-size:1.2rem; font-weight:800; cursor:pointer; box-shadow:0 7px 15px rgba(23,74,139,.18); }
-    .game-control:active { transform:translateY(1px); }
-    .game-start { display:block; margin:18px auto 0; border:0; border-radius:999px; padding:12px 22px; background:var(--accent); color:#1d2530; font-weight:800; cursor:pointer; }
-    @media (max-width:650px) { .game-card{padding:20px;} .game-head{display:block;} .game-hud{font-size:.9rem;} }
-
     @media (max-width: 900px) {
       .hero-grid, .about-grid, .booking-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
@@ -640,10 +605,10 @@
     <section class="about" id="nous">
       <div class="container about-grid">
         <div class="about-visual">
+          <img src="photo-chamois.jpg" alt="Les Chamois réunis au camp scout" class="about-photo">
           <div class="about-visual-content">
-            <img src="logo-unite.png" alt="Unité scoute 11e Sart-Tilman" class="about-logo">
-            <strong>Les Scouts du Sart-Tilman.</strong>
-            <span>La Xioa · 11e unité Ourthe-Amblève</span>
+            <strong>Les Chamois.</strong>
+            <span>Scouts du Sart-Tilman · 11e unité Ourthe-Amblève</span>
           </div>
         </div>
         <div class="about-text">
@@ -695,41 +660,6 @@
         </div>
       </div>
     </section>
-
-
-    <div class="game-modal" id="gameModal" aria-hidden="true">
-      <div class="game-modal-inner">
-        <button class="game-close" id="gameClose" aria-label="Fermer le jeu">×</button>
-    <section class="game-section" id="jeu">
-      <div class="container">
-        <div class="game-card">
-          <div class="game-head">
-            <div>
-              <div class="eyebrow">Petit easter egg</div>
-              <h2>Le défi du Chamois</h2>
-              <p>Le Chamois doit survivre le plus longtemps possible. La montagne est infinie et la difficulté augmente sans arrêt. Sur ordinateur : ← →. Sur téléphone : utilise les boutons.</p>
-            </div>
-          </div>
-          <div class="game-wrap">
-            <canvas id="chamoisGame" aria-label="Mini-jeu du Chamois"></canvas>
-            <div class="game-hud"><span id="gameProgress">0 m</span><span id="gameBest">Record : 0 pts</span></div>
-            <div class="game-message" id="gameMessage">Prêt ? Tiens le plus longtemps possible !</div>
-            <div class="game-controls" aria-label="Contrôles du jeu">
-              <button class="game-control" id="gameLeft" aria-label="Aller à gauche">←</button>
-              <button class="game-control" id="gameRight" aria-label="Aller à droite">→</button>
-            </div>
-            <button class="game-start" id="gameStart">Commencer la montée</button>
-            <div class="game-leaderboard">
-              <h3>Classement local</h3>
-              <ol class="leaderboard-list" id="leaderboardList"></ol>
-              <div class="leaderboard-empty" id="leaderboardEmpty">Aucun score pour le moment.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-      </div>
-    </div>
 
     <section class="booking" id="rendez-vous">
       <div class="container booking-grid">
@@ -872,367 +802,6 @@
       }
 
       requestAnimationFrame(animateProgress);
-    }
-
-
-    // Easter egg : cliquer 5 fois rapidement sur le logo ouvre le mini-jeu.
-    const gameModal = document.getElementById("gameModal");
-    const gameClose = document.getElementById("gameClose");
-    const secretLogo = document.querySelector(".chamois-header-logo");
-    let secretClicks = 0, secretTimer = null;
-    function openGame() {
-      gameModal.classList.add("open");
-      gameModal.setAttribute("aria-hidden", "false");
-      requestAnimationFrame(() => resizeGame());
-    }
-    function closeGame() {
-      if (game) game.running = false;
-      gameModal.classList.remove("open");
-      gameModal.setAttribute("aria-hidden", "true");
-    }
-    secretLogo?.addEventListener("click", () => {
-      secretClicks++;
-      clearTimeout(secretTimer);
-      secretTimer = setTimeout(() => secretClicks = 0, 1400);
-      if (secretClicks >= 5) { secretClicks = 0; openGame(); }
-    });
-    gameClose.addEventListener("click", closeGame);
-    gameModal.addEventListener("click", e => { if(e.target === gameModal) closeGame(); });
-    document.addEventListener("keydown", e => { if(e.key === "Escape" && gameModal.classList.contains("open")) closeGame(); });
-
-    const canvas = document.getElementById("chamoisGame");
-    const gameStart = document.getElementById("gameStart");
-    const gameLeft = document.getElementById("gameLeft");
-    const gameRight = document.getElementById("gameRight");
-    const gameProgress = document.getElementById("gameProgress");
-    const gameBest = document.getElementById("gameBest");
-    const gameMessage = document.getElementById("gameMessage");
-    const leaderboardList = document.getElementById("leaderboardList");
-    const leaderboardEmpty = document.getElementById("leaderboardEmpty");
-    const ctx = canvas.getContext("2d");
-    let game = null;
-
-    // Nouvelle saison du jeu : on repart avec un leaderboard vierge.
-    // Le marqueur empêche d'effacer les nouveaux scores à chaque chargement.
-    const GAME_VERSION = "v3";
-    if (localStorage.getItem("chamoisGameVersion") !== GAME_VERSION) {
-      localStorage.removeItem("chamoisLeaderboard");
-      localStorage.removeItem("chamoisGameBestScore");
-      localStorage.setItem("chamoisGameVersion", GAME_VERSION);
-    }
-    let leaderboard = [];
-    try { leaderboard = JSON.parse(localStorage.getItem("chamoisLeaderboard") || "[]"); } catch(e) { leaderboard = []; }
-    leaderboard = Array.isArray(leaderboard) ? leaderboard.filter(x => x && Number.isFinite(Number(x.score))) : [];
-    let bestScore = Number(localStorage.getItem("chamoisGameBestScore") || 0);
-    gameBest.textContent = `Record : ${bestScore} pts`;
-
-    function renderLeaderboard() {
-      leaderboardList.innerHTML = "";
-      leaderboardEmpty.style.display = leaderboard.length ? "none" : "block";
-      leaderboard.slice(0,10).forEach((entry,i) => {
-        const li=document.createElement("li");
-        const name=document.createElement("span"); name.textContent=`${i+1}. ${entry.name}`;
-        const score=document.createElement("strong"); score.textContent=`${Number(entry.score).toLocaleString("fr-BE")} pts`;
-        li.append(name,score); leaderboardList.appendChild(li);
-      });
-    }
-    renderLeaderboard();
-
-    function saveScore(score) {
-      let name = prompt("Bravo ! Entre ton prénom ou ton pseudo pour le classement :", "Chamois");
-      if(name === null) return;
-      name = name.trim().slice(0,18) || "Chamois";
-      leaderboard.push({name,score:Number(score)});
-      leaderboard.sort((a,b)=>b.score-a.score);
-      leaderboard=leaderboard.slice(0,10);
-      localStorage.setItem("chamoisLeaderboard", JSON.stringify(leaderboard));
-      if(score > bestScore){
-        bestScore = score;
-        localStorage.setItem("chamoisGameBestScore", String(bestScore));
-      }
-      gameBest.textContent = `Record : ${bestScore.toLocaleString("fr-BE")} pts`;
-      renderLeaderboard();
-    }
-
-    function resizeGame() {
-      const rect = canvas.getBoundingClientRect();
-      if(!rect.width || !rect.height) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    resizeGame();
-    window.addEventListener("resize", resizeGame);
-
-    const mountainScene = new Image();
-    mountainScene.src = "game-mountain-scene.png";
-
-    function drawMountain(w, h, climb) {
-      const sky = ctx.createLinearGradient(0,0,0,h);
-      sky.addColorStop(0,"#b9dcf4"); sky.addColorStop(1,"#edf6fc");
-      ctx.fillStyle=sky; ctx.fillRect(0,0,w,h);
-      // Le décor défile : le Chamois donne réellement l'impression de grimper.
-      const scroll=(climb*42)%h;
-      ctx.fillStyle="#b5cfe3";
-      ctx.beginPath(); ctx.moveTo(0,h*.76+scroll*.18); ctx.lineTo(w*.18,h*.47+scroll*.18); ctx.lineTo(w*.36,h*.7+scroll*.18); ctx.lineTo(w*.58,h*.38+scroll*.18); ctx.lineTo(w*.78,h*.69+scroll*.18); ctx.lineTo(w,h*.45+scroll*.18); ctx.lineTo(w,h); ctx.lineTo(0,h); ctx.closePath(); ctx.fill();
-      ctx.fillStyle="#8eacc2";
-      ctx.beginPath(); ctx.moveTo(0,h*.9-scroll*.12); ctx.lineTo(w*.28,h*.56-scroll*.12); ctx.lineTo(w*.48,h*.78-scroll*.12); ctx.lineTo(w*.7,h*.5-scroll*.12); ctx.lineTo(w,h*.78-scroll*.12); ctx.lineTo(w,h); ctx.lineTo(0,h); ctx.closePath(); ctx.fill();
-      const phase=(climb*.055)%1;
-      const peakY=h*.12+phase*h*.10;
-      ctx.fillStyle="#f7f9fb"; ctx.beginPath(); ctx.moveTo(w*.5,peakY); ctx.lineTo(w*.42,peakY+h*.13); ctx.lineTo(w*.58,peakY+h*.13); ctx.closePath(); ctx.fill();
-      ctx.fillStyle="#174a8b"; ctx.font="700 13px DM Sans"; ctx.textAlign="center"; ctx.fillText("ASCENSION INFINIE",w*.5,Math.max(18,peakY-8));
-    }
-    function drawChamois(x,y,size) {
-      ctx.save(); ctx.translate(x,y); ctx.fillStyle="#202a2d";
-      ctx.beginPath(); ctx.ellipse(0,0,size*.58,size*.32,0,0,Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(size*.48,-size*.22,size*.25,0,Math.PI*2); ctx.fill();
-      ctx.strokeStyle="#202a2d"; ctx.lineWidth=Math.max(2,size*.09); ctx.lineCap="round";
-      for(const dx of [-.3,.25]) { ctx.beginPath(); ctx.moveTo(dx*size,size*.16); ctx.lineTo((dx-.08)*size,size*.55); ctx.stroke(); }
-      ctx.beginPath(); ctx.moveTo(size*.55,-size*.36); ctx.quadraticCurveTo(size*.72,-size*.68,size*.58,-size*.74); ctx.moveTo(size*.63,-size*.34); ctx.quadraticCurveTo(size*.82,-size*.6,size*.7,-size*.72); ctx.stroke(); ctx.restore();
-    }
-    function drawBarrier(o) {
-      ctx.save();
-      const variant = o.variant || 0;
-      const x=o.x, y=o.y, w=o.w, h=o.h;
-      const bodyH = h*.46;
-      const legW = Math.max(5, w*.09);
-      const legH = h*.52;
-      const topY = y + h*.10;
-      const bodyY = y + h*.22;
-      const dark = variant===1 || variant===3;
-      const base = dark ? "#1d2528" : "#f3f3ef";
-      const stripe = dark ? "#f0b51b" : "#e74b3c";
-      const border = dark ? "#121719" : "#c8c9c5";
-
-      // Pieds de la barrière
-      ctx.fillStyle=base;
-      ctx.fillRect(x+w*.12, bodyY+bodyH*.72, legW, legH);
-      ctx.fillRect(x+w*.79, bodyY+bodyH*.72, legW, legH);
-      if(variant===2){
-        ctx.fillRect(x+w*.455, bodyY+bodyH*.72, legW, legH*.82);
-      }
-
-      // Panneau principal
-      ctx.fillStyle=base;
-      ctx.strokeStyle=border;
-      ctx.lineWidth=Math.max(2,w*.018);
-      ctx.fillRect(x, bodyY, w, bodyH);
-      ctx.strokeRect(x, bodyY, w, bodyH);
-
-      // Bandes diagonales, dessinées directement pour rester nettes à toutes tailles
-      ctx.save();
-      ctx.beginPath(); ctx.rect(x+1, bodyY+1, w-2, bodyH-2); ctx.clip();
-      ctx.fillStyle=stripe;
-      const bandW=Math.max(10,w*.16);
-      for(let bx=x-w; bx<x+w*1.5; bx+=bandW*2){
-        ctx.beginPath();
-        ctx.moveTo(bx, bodyY+bodyH); ctx.lineTo(bx+bandW, bodyY+bodyH);
-        ctx.lineTo(bx+bandW*2.0, bodyY); ctx.lineTo(bx+bandW, bodyY); ctx.closePath(); ctx.fill();
-      }
-      ctx.restore();
-
-      // Lampes / réflecteurs
-      const lampR=Math.max(3,w*.035);
-      ctx.fillStyle=dark ? "#ffd35a" : "#f7f7f2";
-      ctx.strokeStyle=border; ctx.lineWidth=Math.max(1.5,w*.012);
-      for(const lx of [x+w*.14,x+w*.86]){
-        ctx.beginPath(); ctx.arc(lx,bodyY-lampR*.2,lampR,0,Math.PI*2); ctx.fill(); ctx.stroke();
-      }
-      // Petits détails au sol
-      ctx.fillStyle="rgba(20,28,32,.22)";
-      ctx.fillRect(x+w*.05, y+h*.91, w*.9, Math.max(2,h*.035));
-      ctx.restore();
-    }
-    // Obstacles qui tombent du ciel : ils arrivent depuis le haut avec des trajectoires légèrement variées.
-    function drawFallingRock(o) {
-      // Rochers facettés : silhouette irrégulière + faces de pierre pour mieux
-      // correspondre au décor et être immédiatement reconnaissables comme des rochers.
-      ctx.save();
-      const cx=o.x+o.w/2, cy=o.y+o.h/2;
-      ctx.translate(cx,cy);
-      ctx.rotate(o.rot||0);
-
-      const w=o.w, h=o.h;
-      const r=Math.min(w,h)/2;
-      const variant=o.variant||0;
-      const pts=[];
-      const count=9;
-      for(let i=0;i<count;i++){
-        const a=-Math.PI/2+i*(Math.PI*2/count);
-        const wobble=[.84,1.03,.90,1.08,.88,1.02,.91,1.06,.86][(i+variant)%9];
-        const px=Math.cos(a)*r*wobble*(w/h>.95?1:.92);
-        const py=Math.sin(a)*r*wobble*(h/w>.95?1:.92);
-        pts.push([px,py]);
-      }
-
-      // Ombre portée
-      ctx.fillStyle='rgba(10,18,24,.22)';
-      ctx.beginPath();
-      ctx.ellipse(w*.10,h*.34,r*.95,r*.34,0,0,Math.PI*2);
-      ctx.fill();
-
-      // Silhouette principale
-      ctx.fillStyle='#4f5960';
-      ctx.strokeStyle='#273238';
-      ctx.lineWidth=Math.max(1.5,w*.035);
-      ctx.beginPath();
-      pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
-      ctx.closePath(); ctx.fill(); ctx.stroke();
-
-      // Faces principales : aspect pierre taillée
-      const facets=[
-        {poly:[[0,-r*.92],[-r*.62,-r*.30],[-r*.18,r*.04], [r*.08,-r*.22]], fill:'#78838a'},
-        {poly:[[0,-r*.92],[r*.08,-r*.22],[r*.63,-r*.45],[r*.72,-r*.05]], fill:'#667279'},
-        {poly:[[-r*.62,-r*.30],[-r*.18,r*.04],[-r*.36,r*.65],[-r*.78,r*.20]], fill:'#5d686f'},
-        {poly:[[-r*.18,r*.04],[r*.08,-r*.22],[r*.58,r*.12],[r*.20,r*.70],[-r*.36,r*.65]], fill:'#465158'},
-        {poly:[[r*.58,r*.12],[r*.72,-r*.05],[r*.42,r*.62],[r*.20,r*.70]], fill:'#39444a'}
-      ];
-      facets.forEach(f=>{
-        ctx.fillStyle=f.fill;
-        ctx.beginPath();
-        f.poly.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));
-        ctx.closePath(); ctx.fill();
-      });
-
-      // Petites arêtes claires
-      ctx.strokeStyle='rgba(184,194,198,.55)';
-      ctx.lineWidth=Math.max(1,w*.018);
-      ctx.beginPath();
-      ctx.moveTo(-r*.58,-r*.30); ctx.lineTo(-r*.18,r*.04); ctx.lineTo(r*.08,-r*.22);
-      ctx.moveTo(-r*.18,r*.04); ctx.lineTo(r*.20,r*.70);
-      ctx.stroke();
-
-      // Traînée pour les rochers qui tombent du ciel
-      if(o.kind==='meteor'){
-        const trail=Math.max(10,h*.85);
-        const grad=ctx.createLinearGradient(0,-h*.2,0,-h*.2-trail);
-        grad.addColorStop(0,'rgba(225,232,232,.55)');
-        grad.addColorStop(1,'rgba(225,232,232,0)');
-        ctx.strokeStyle=grad;
-        ctx.lineWidth=Math.max(2,w*.10);
-        ctx.beginPath(); ctx.moveTo(-r*.18,-r*.75); ctx.lineTo(-r*.30,-r*.75-trail); ctx.stroke();
-      }
-      ctx.restore();
-    }
-    // Difficulté : elle continue de monter sans plafond artificiel.
-    // La vitesse verticale et la fréquence des obstacles augmentent avec la distance.
-    function difficulty(distance, elapsed) {
-      const warmup = Math.min(1, elapsed / 4.5);
-      const level = Math.log1p(distance / 75) * 1.72;
-      return {
-        speed: 150 + level * 62,
-        spawn: Math.max(.14, .88 * Math.pow(.91, level)),
-        size: 22 + Math.min(28, level * 2.9),
-        warmup
-      };
-    }
-    function startGame(){
-      resizeGame(); const rect=canvas.getBoundingClientRect();
-      game={running:true,progress:0,distance:0,x:rect.width/2,y:rect.height*.80,last:performance.now(),obstacles:[],spawn:2.2,avoided:0,startTime:performance.now(),score:0};
-      gameMessage.textContent="Monte, évite les rochers et bats ton record !"; gameStart.textContent="Recommencer"; requestAnimationFrame(loop);
-    }
-    function move(dir){ if(game && game.running) game.x += dir*62; }
-    gameLeft.addEventListener("pointerdown",()=>move(-1)); gameRight.addEventListener("pointerdown",()=>move(1));
-    window.addEventListener("keydown",e=>{ if(e.key==="ArrowLeft"){e.preventDefault();move(-1);} if(e.key==="ArrowRight"){e.preventDefault();move(1);} if(e.key==="Enter" && (!game || !game.running) && gameModal.classList.contains("open")) startGame(); });
-    gameStart.addEventListener("click",startGame);
-    function loop(now){
-      if(!game || !game.running) return;
-      const rect=canvas.getBoundingClientRect(), w=rect.width, h=rect.height;
-      const dt=Math.min((now-game.last)/1000,.035); game.last=now;
-      game.progress+=dt; game.distance+=dt*(7 + Math.min(7, game.distance/500));
-      const d=difficulty(game.distance, (now-game.startTime)/1000);
-      game.x=Math.max(24,Math.min(w-24,game.x));
-      game.spawn-=dt;
-
-      // 5 secondes pour prendre le rythme, puis la difficulté accélère rapidement.
-      if(game.spawn<=0){
-        const elapsed=(now-game.startTime)/1000;
-        const warmup=elapsed<5;
-        if(!warmup || Math.random()<.82){
-          const size=d.size*(.82+Math.random()*.34);
-          const falling = Math.random() < Math.min(.78, .42 + game.distance/1500);
-          const drift = (Math.random()-.5) * (falling ? 42 : 12);
-          game.obstacles.push({
-            x:14+Math.random()*Math.max(1,w-28-size),
-            y:-size-Math.random()*90,
-            w:size*(1.15+Math.random()*.38),
-            h:size*(.88+Math.random()*.28),
-            speed:d.speed*(falling ? (1.05+Math.random()*.30) : (.90+Math.random()*.20)),
-            drift,
-            rot:(Math.random()-.5)*.8,
-            rotSpeed:(Math.random()-.5)*1.8,
-            kind: falling ? "meteor" : "rock",
-            variant: Math.floor(Math.random()*3),
-            counted:false
-          });
-
-          // Plus on avance, plusieurs rochers peuvent tomber presque ensemble.
-          if(!warmup && game.distance>350 && Math.random()<Math.min(.62, .22 + game.distance/1700)){
-            const size2=d.size*(.72+Math.random()*.28);
-            game.obstacles.push({
-              x:14+Math.random()*Math.max(1,w-28-size2), y:-size2-Math.random()*55,
-              w:size2*(1.1+Math.random()*.35), h:size2,
-              speed:d.speed*(1.08+Math.random()*.34), drift:(Math.random()-.5)*55,
-              variant:Math.floor(Math.random()*3), rot:(Math.random()-.5)*.8, rotSpeed:(Math.random()-.5)*2, kind:"meteor", counted:false
-            });
-          }
-          if(!warmup && game.distance>750 && Math.random()<Math.min(.52, .12 + game.distance/3000)){
-            const size3=d.size*(.64+Math.random()*.24);
-            game.obstacles.push({
-              x:14+Math.random()*Math.max(1,w-28-size3), y:-size3-Math.random()*120,
-              w:size3*(1.08+Math.random()*.32), h:size3*(.9+Math.random()*.18),
-              speed:d.speed*(1.02+Math.random()*.28), drift:(Math.random()-.5)*65,
-              variant:Math.floor(Math.random()*3), rot:(Math.random()-.5)*.9, rotSpeed:(Math.random()-.5)*2.2, kind:Math.random()<.7?"meteor":"rock", counted:false
-            });
-          }
-          if(!warmup && game.distance>1800 && Math.random()<Math.min(.38, .06 + game.distance/7000)){
-            const size4=d.size*(.55+Math.random()*.20);
-            game.obstacles.push({
-              x:14+Math.random()*Math.max(1,w-28-size4), y:-size4-Math.random()*170,
-              w:size4*(1.08+Math.random()*.28), h:size4*(.88+Math.random()*.20),
-              speed:d.speed*(1.10+Math.random()*.34), drift:(Math.random()-.5)*85,
-              variant:Math.floor(Math.random()*3), rot:(Math.random()-.5)*1.2, rotSpeed:(Math.random()-.5)*2.8, kind:"meteor", counted:false
-            });
-          }
-        }
-        game.spawn=warmup ? .82 : d.spawn*(.62+Math.random()*.18);
-      }
-      game.obstacles.forEach(o=>{
-        o.y+=o.speed*dt;
-        o.x+=(o.drift||0)*dt;
-        o.rot+=(o.rotSpeed||0)*dt;
-        if(o.x<5){o.x=5;o.drift=Math.abs(o.drift||0);}
-        if(o.x+o.w>w-5){o.x=w-5-o.w;o.drift=-Math.abs(o.drift||0);}
-        if(!o.counted && o.y>game.y+32){o.counted=true;game.avoided++;}
-      });
-      game.obstacles=game.obstacles.filter(o=>o.y<h+70);
-
-      // Hitbox intermédiaire : ni injuste, ni trop permissive.
-      for(const o of game.obstacles){
-        const playerHalfW=17, playerHalfH=15;
-        const rockInsetX=Math.min(3, o.w*.10), rockInsetY=Math.min(3, o.h*.08);
-        const hitX=game.x+playerHalfW > o.x+rockInsetX && game.x-playerHalfW < o.x+o.w-rockInsetX;
-        const hitY=game.y+playerHalfH > o.y+rockInsetY && game.y-playerHalfH < o.y+o.h-rockInsetY;
-        if(hitX && hitY){ game.running=false; finishGame(); return; }
-      }
-      drawMountain(w,h,game.distance/35); game.obstacles.forEach(o => o.kind === "meteor" ? drawFallingRock(o) : drawBarrier(o)); drawChamois(game.x,game.y,34);
-      const meters=Math.floor(game.distance); gameProgress.textContent=`${meters} m`;
-      const seconds=(now-game.startTime)/1000;
-      const liveScore=Math.floor(meters*10 + game.avoided*35 + seconds*2);
-      if(liveScore > bestScore){ bestScore=liveScore; gameBest.textContent=`Record : ${bestScore.toLocaleString("fr-BE")} pts`; localStorage.setItem("chamoisGameBestScore",String(bestScore)); }
-      requestAnimationFrame(loop);
-    }
-    function finishGame(){
-      const meters=Math.floor(game.distance); gameProgress.textContent=`${meters} m`;
-      const seconds=(performance.now()-game.startTime)/1000;
-      const score=Math.max(1,Math.floor(meters*10+game.avoided*35+seconds*2));
-      game.score=score;
-      if(score>bestScore){ bestScore=score; localStorage.setItem("chamoisGameBestScore",String(bestScore)); }
-      gameBest.textContent=`Record : ${bestScore.toLocaleString("fr-BE")} pts`;
-      gameMessage.textContent=`Fin de partie : ${meters} m — ${score.toLocaleString("fr-BE")} points.`;
-      saveScore(score);
-      const rect=canvas.getBoundingClientRect(); drawMountain(rect.width,rect.height,game.distance/35); game.obstacles.forEach(o => o.kind === "meteor" ? drawFallingRock(o) : drawBarrier(o)); drawChamois(game.x,game.y,34);
     }
 
     document.getElementById("bookingForm").addEventListener("submit", async function(e) {
